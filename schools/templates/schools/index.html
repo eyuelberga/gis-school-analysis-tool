@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Nearby Schools</title>
+</head>
+
+<body>
+
+    <h1>Nearby Shops</h1>
+
+    {% if schools %}
+    <ul>
+        {% for school in schools %}
+        <li>
+            {{ school.name }} : {{school.distance}} : {{school.location}}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>

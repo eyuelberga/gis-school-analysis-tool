@@ -1,0 +1,72 @@
+{% load leaflet_tags %}
+{% leaflet_css %}
+{% leaflet_js %}
+<style>
+.leaflet-container{
+    height: 800px;
+}
+</style>
+<div>
+    <h1>{{school.name}}</h1>
+    {% leaflet_map "main" callback="map_init" %}
+</div>
+<script type="text/javascript" >
+    {% autoescape off %}
+ let json_residential_areas_0 = {{layer_residential_areas | safe}};
+ {% endautoescape%}
+ function style_residential_areas_0_0() {
+            return {
+                pane: 'pane_residential_areas_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: geoStyle(1.0), 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,191,111,1.0)',
+                interactive: false,
+            }
+        }
+        var m2px = 1;
+        function newM2px() {
+            var centerLatLng = map.getCenter();
+            var pointC = map.latLngToContainerPoint(centerLatLng);
+            var pointX = [pointC.x + 100, pointC.y];
+
+            var latLngC = map.containerPointToLatLng(pointC);
+            var latLngX = map.containerPointToLatLng(pointX);
+
+            var distanceX = latLngC.distanceTo(latLngX)/100;
+
+            reciprocal = 1 / distanceX;
+            m2px = reciprocal;
+        }
+        function geoStyle(m) {
+            return Math.ceil(m * m2px);
+        }
+</script>
+
+<script type="text/javascript">
+function map_init(map,options){
+    let lon = "{{school.location.x}}";
+    let lat = "{{school.location.y}}";
+
+    map.setView([lat,lon],12);
+    L.marker([lat,lon]).addTo(map);
+    let layer_residential_areas_0 = new L.geoJson(json_residential_areas_0, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_residential_areas_0',
+            layerName: 'layer_residential_areas_0',
+            pane: 'pane_residential_areas_0',
+            style: style_residential_areas_0_0,
+        });
+        map.createPane('pane_residential_areas_0');
+        map.getPane('pane_residential_areas_0').style.zIndex = 400;
+        map.getPane('pane_residential_areas_0').style['mix-blend-mode'] = 'normal';
+      
+    map.addLayer(layer_residential_areas_0);
+}
+</script>
