@@ -25,13 +25,13 @@
         <div class="card-body d-sm-flex justify-content-between">
 
           <h4 class="mb-2 mb-sm-0 pt-1">
-            <span>{{school.name}}</span>
+            <span>Schools</span>
           </h4>
 
         </div>
 
       </div>
-        {% load leaflet_tags %}
+      {% load leaflet_tags %}
 {% leaflet_css %}
 {% leaflet_js %}
 <style>
@@ -41,11 +41,8 @@
 </style>
 <div>
     {% leaflet_map "main" callback="map_init" %}
-</div>
+</div><script src="{% static "data/residential_areas_0.js" %}"></script>
 <script type="text/javascript" >
-    {% autoescape off %}
- let json_residential_areas_0 = {{layer_residential_areas | safe}};
- {% endautoescape%}
  function style_residential_areas_0_0() {
             return {
                 pane: 'pane_residential_areas_0',
@@ -82,11 +79,16 @@
 
 <script type="text/javascript">
 function map_init(map,options){
-    let lon = "{{school.location.x}}";
-    let lat = "{{school.location.y}}";
-    //let popup = L.popup().setLatLng([lat,lon]).setContent('<p>hello world</p>').openOn(map);
-    map.setView([lat,lon],15);
-    L.marker([lat,lon]).bindPopup("<p>{{school.name}}</p> <p>{{school.location}}</p>").openPopup().addTo(map);
+ map.setView(["8.9806","38.7578"],12);
+{% if schools %}
+        {% for school in schools %}
+    L.marker([{{school.location.y}},{{school.location.x}}]).bindPopup("<p>{{school.name}}</p> <p>{{school.location}}</p>").openPopup().addTo(map);
+
+
+        {% endfor %}
+
+    {% endif %}
+
     let layer_residential_areas_0 = new L.geoJson(json_residential_areas_0, {
             attribution: '',
             interactive: false,
@@ -102,6 +104,7 @@ function map_init(map,options){
     map.addLayer(layer_residential_areas_0);
 }
 </script>
+
     </div>
 
   </main>
@@ -112,5 +115,3 @@ function map_init(map,options){
 </body>
 
 </html>
-
-

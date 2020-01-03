@@ -20,6 +20,7 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.Home.as_view()),
-    url(r'^school/(?P<pk>[0-9]+)$',views.SchoolsDetailView.as_view())
+    path('',views.Home.as_view(), name='home'),
+    path('school', views.Schools.as_view(), name='schools'),
+    url(r'^school/(?P<pk>[0-9]+)$',views.SchoolsDetailView.as_view(), name='detail')
 ]

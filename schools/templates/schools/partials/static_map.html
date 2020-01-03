@@ -305,8 +305,8 @@
             onEachFeature: pop_road_centerlines_2,
             styles: [style_road_centerlines_2_0,style_road_centerlines_2_1,]
         });
-        bounds_group.addLayer(layer_road_centerlines_2);
-        map.addLayer(layer_road_centerlines_2);
+        //bounds_group.addLayer(layer_road_centerlines_2);
+        //map.addLayer(layer_road_centerlines_2);
         var baseMaps = {};
         L.control.layers(baseMaps,{'<img src="{% static "legend/road_centerlines_2.png" %}" /> road_centerlines': layer_road_centerlines_2,'<img src="{% static "legend/boundary_1.png"%}" /> boundary': layer_boundary_1,'<img src="{% static "legend/residential_areas_0.png"%}" /> residential_areas': layer_residential_areas_0,},{collapsed:false}).addTo(map);
         setBounds();

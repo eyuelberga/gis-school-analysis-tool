@@ -19,8 +19,15 @@ user_location = Point(longitude, latitude, srid=4326)
 class Home(generic.ListView):
     model = School
     context_object_name = 'schools'
-    queryset = School.objects.annotate(distance=Distance('location', user_location)).order_by('distance')
     template_name = 'schools/dashboard.html'
+    queryset = School.objects.all()
+
+class Schools(generic.ListView):
+    model = School
+    context_object_name = 'schools'
+    # queryset = School.objects.annotate(distance=Distance('location', user_location)).order_by('distance')
+    queryset = School.objects.all()
+    template_name = 'schools/schools.html'
 
 
 class SchoolsDetailView(DetailView):
