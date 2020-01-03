@@ -2,14 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3153c4b-a58d-4d7a-86a7-8b979af10f00" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/schools/templates/schools/partials/footer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/schools/templates/schools/schools.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/terminal.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/residential_area_data.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schools/migrations/0003_residentialarea.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schools/migrations/0004_auto_20200103_0759.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schools/templates/schools/distance_analysis.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schools/templates/schools/distance_analysis_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schools/templates/schools/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/new_school_locations/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/new_school_locations/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schools/templates/schools/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/schools/templates/schools/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schools/templates/schools/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/schools/templates/schools/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schools/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/schools/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/schools/templates/schools/partials/navigation.html" beforeDir="false" afterPath="$PROJECT_DIR$/schools/templates/schools/partials/navigation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schools/templates/schools/partials/static_map.html" beforeDir="false" afterPath="$PROJECT_DIR$/schools/templates/schools/partials/static_map.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/schools/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/schools/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,6 +25,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -29,13 +33,20 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1VnAfCcMRo6PCPILiSjm4vUW00b" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="settings.editor.selected.configurable" value="terminal" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/schools/templates/schools" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/schools/templates/schools/partials" />
     </key>
@@ -77,5 +88,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

@@ -13,7 +13,9 @@
 <body class="grey lighten-3">
 
 {% include 'schools/partials/navigation.html' %}
-
+      {% load leaflet_tags %}
+{% leaflet_css %}
+{% leaflet_js %}
 <style>
 .leaflet-container{
     height: 500px;
@@ -31,7 +33,7 @@
         <div class="card-body d-sm-flex justify-content-between">
 
           <h4 class="mb-2 mb-sm-0 pt-1">
-            <span>Schools</span>
+            <span>Distance Analysis {{request.query}}</span>
           </h4>
 
         </div>
@@ -48,8 +50,8 @@
 
             <!--Card content-->
             <div class="card-body">
-{% include 'schools/partials/queryset_map.html' %}
 
+  {% include 'schools/partials/queryset_map.html' %}
             </div>
 
           </div>
@@ -62,16 +64,27 @@
         <div class="col-md-3 mb-4">
           <!--Card-->
           <div class="card mb-4">
-                                <div class="card-body">
-                                    <div class="d-inline-block">
-                                        <h5 class="text-muted">Total Schools</h5>
-                                        <h2 class="mb-0">{{schools.count }}</h2>
-                                    </div>
-                                    <div class="float-right icon-circle-medium  icon-box-lg  bg-info-light mt-1">
-                                        <i class="fas fa-school text-info" style="font-size:35px"></i>
-                                    </div>
-                                </div>
-                            </div>
+
+            <!--Card content-->
+            <div class="card-body">
+
+              <!-- List group links -->
+              <div class="list-group list-group-flush">
+                {% if schools %}
+        {% for school in schools %}
+                <a class="list-group-item list-group-item-action waves-effect">{{school.name}}
+                  <span class="badge badge-primary badge-pill pull-right">{{school.distance}}</span>
+                </a>
+                {% endfor %}
+                {% endif %}
+
+
+              </div>
+              <!-- List group links -->
+
+            </div>
+
+          </div>
           <!--/.Card-->
 
         </div>
@@ -79,9 +92,6 @@
 
       </div>
       <!--Grid row-->
-
-
-
 
     </div>
 
