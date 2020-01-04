@@ -1,0 +1,72 @@
+{% load static %}
+{% load leaflet_tags %}
+{% leaflet_css %}
+{% leaflet_js %}
+<script src="{% static "data/boundary_1.js" %}"></script>
+<div>
+    {% leaflet_map "main" callback="map_init" %}
+</div>
+
+<script >
+function map_init(map,options){
+     var m2px = 1;
+        function newM2px() {
+            var centerLatLng = map.getCenter();
+            var pointC = map.latLngToContainerPoint(centerLatLng);
+            var pointX = [pointC.x + 100, pointC.y];
+
+            var latLngC = map.containerPointToLatLng(pointC);
+            var latLngX = map.containerPointToLatLng(pointX);
+
+            var distanceX = latLngC.distanceTo(latLngX)/100;
+
+            reciprocal = 1 / distanceX;
+            m2px = reciprocal;
+        }
+        function geoStyle(m) {
+            return Math.ceil(m * m2px);
+        }
+
+     function style_boundary_1_0() {
+            return {
+                pane: 'pane_boundary_1',
+                opacity: 1,
+                color: 'rgba(225,89,137,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: geoStyle(3.0),
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+map.createPane('pane_boundary_1');
+        map.getPane('pane_boundary_1').style.zIndex = 401;
+        map.getPane('pane_boundary_1').style['mix-blend-mode'] = 'normal';
+        var layer_boundary_1 = new L.geoJson(json_boundary_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_boundary_1',
+            layerName: 'layer_boundary_1',
+            pane: 'pane_boundary_1',
+            style: style_boundary_1_0,
+        });
+        map.addLayer(layer_boundary_1);
+
+        map.setView(["8.9806","38.7578"],12);
+{% if residential_areas %}
+        let list = []
+        {% for ra in residential_areas %}
+        list = []
+        for(var i =0; i <{{ ra.location.geojson | safe }}.coordinates[0][0].length;i++){
+        let coordinates = [{{ ra.location.geojson | safe }}.coordinates[0][0][i][1], {{ ra.location.geojson | safe }}.coordinates[0][0][i][0]]
+        list.push(coordinates);
+        }
+        L.polygon(list,{weight:1,}).bindPopup("<p><strong>{{ra.id}}_</strong>mvt_id {{ra.name}}</p><a class='btn btn-outline-primary'>Analyze</a>").addTo(map);
+        {% endfor %}
+
+    {% endif %}
+}
+
+
+</script>

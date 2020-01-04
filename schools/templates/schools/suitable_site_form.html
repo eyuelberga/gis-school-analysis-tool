@@ -1,0 +1,38 @@
+{% extends "./base.html" %}
+{% block heading %} Suitable Site {% endblock %}
+{% block content %}
+       <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-9 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!--Card content-->
+            <div class="card-body">
+{% include 'schools/partials/residential_area_map.html' %}
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-3 mb-4">
+          <!--Card-->
+          <div class="card mb-4">
+              <div class="card-header text-center"> Usage</div>
+                                <div class="card-body">
+                                 <p class="text-muted">select and click on a residential area form the map. Use the analyze button to get an analysis of suitable locations for public school construction</p>
+
+                                </div>
+                            </div>
+          <!--/.Card-->
+
+        </div>
+      </div>
+{% endblock %}

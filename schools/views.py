@@ -7,17 +7,25 @@ from django.contrib.gis.db.models.functions import Distance
 from django.shortcuts import get_object_or_404, render
 
 from .forms import DistanceAnalysisForm
-from .models import School
+from .models import School, ResidentialArea
 
 longitude = 38.7494272
 latitude = 8.943757
 
 
 class Home(generic.ListView):
-    model = School
-    context_object_name = 'schools'
     template_name = 'schools/dashboard.html'
-    queryset = School.objects.all()
+
+    def get_queryset(self):
+        queryset = School.objects.all()
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['schools'] = School.objects.all().count()
+        context['residential_areas'] = ResidentialArea.objects.all().count()
+
+        return context
 
 
 class Schools(generic.ListView):
@@ -71,3 +79,28 @@ class DistanceAnalysis(generic.ListView):
 class SchoolsDetailView(DetailView):
     template_name = 'schools/detail.html'
     model = School
+
+
+class SuitableSiteFormView(generic.ListView):
+    template_name = 'schools/suitable_site_form.html'
+    model = ResidentialArea
+    context_object_name = 'residential_areas'
+
+    def get_queryset(self):
+        queryset = ResidentialArea.objects.all()
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            target_coord = SpatialReference(4326)
+            form_coord = SpatialReference(3857)
+            pnt = data['location']
+            pnt.transform(CoordTransform(form_coord, target_coord))
+            return HttpResponseRedirect('/school/distance_analysis/' + str(pnt.x) + '/' + str(pnt.y))
+        return render(request, self.template_name, {'form': form})
