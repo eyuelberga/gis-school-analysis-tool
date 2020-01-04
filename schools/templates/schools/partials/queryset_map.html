@@ -2,13 +2,56 @@
 {% load leaflet_tags %}
 {% leaflet_css %}
 {% leaflet_js %}
- <script src="{% static "data/residential_areas_0.js" %}"></script>
+<script src="{% static " data/residential_areas_0.js" %}"></script>
  <script src="{% static "data/boundary_1.js" %}"></script>
 <div>
     {% leaflet_map "main" callback="map_init" %}
 </div>
+{% if request.resolver_match.url_name == 'distance_analysis' %}
+<!--Card-->
+<div class="card mt-2">
+
+    <!-- Card header -->
+    <div class="card-header">Analysis Result</div>
+
+    <!--Card content-->
+    <div class="card-body">
+        <ul class="traffic-sales list-group list-group-flush">
+            <li class="traffic-sales-content list-group-item "><span class="traffic-sales-name">Location </span><span
+                    class="traffic-sales-amount">(lat:{{lat}} lng:{{lng}}), SRID=4326 </span>
+            </li>
+            <li class="traffic-sales-content list-group-item"><span class="traffic-sales-name">Closest School<span
+                    class="traffic-sales-amount">{{schools.first.name}}  <span
+                    class="icon-circle-small icon-box-xs text-success ml-4 bg-primary-light"><i
+                    class="fa fa-fw fa-map-pin text-primary"></i></span><span
+                    class="ml-1 text-primary">{{schools.first.distance}}</span></span>
+                                                </span>
+            </li>
+            {%if assessment%}
+            <li class="traffic-sales-content list-group-item"><span class="traffic-sales-name">Assessment</span> <span
+                    class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i
+                    class="fa fa-fw fa-map-check"></i></span><span
+                    class="ml-1  text-success">There is a school within a distance less than or equal to 5kms </span></span>
+                                                </span>
+            </li>
+            {% else %}
+                <li class="traffic-sales-content list-group-item"> <span class="traffic-sales-name">Assessment</span><span
+                    class="icon-circle-small icon-box-xs text-danger ml-4 bg-success-light"><i
+                    class="fa fa-fw fa-map-check"></i></span><span
+                    class="ml-1 traffic-sales-name text-danger">There are no schools within a distance less than or equal to 5kms </span></span>
+                                                </span>
+            </li>
+            {% endif %}
+        </ul>
+
+    </div>
+
+</div>
+<!--/.Card-->
+{% endif %}
 
 <script type="text/javascript">
+
  function style_residential_areas_0_0() {
             return {
                 pane: 'pane_residential_areas_0',
@@ -55,10 +98,23 @@
             }
         }
 function map_init(map,options){
- map.setView(["8.9806","38.7578"],12);
+const schoolIcon = L.divIcon({
+html:"<i class='fas fa-school text-primary fa-2x'></i>",
+iconSize:[20,20],
+className:"myDivIcon"});
+const markerIcon = L.divIcon({
+html:"<i class='fas fa-map-marker text-info fa-2x'></i>",
+iconSize:[20,20],
+className:"myDivIcon"});
+{% if request.resolver_match.url_name == 'distance_analysis' %}
+map.setView([{{lng}},{{lat}}],13);
+ L.marker([{{lng}},{{lat}}],{icon:markerIcon}).bindPopup("<p>{{school.name}}</p> <p>The selected location</p>").openPopup().addTo(map);
+{% else %}
+map.setView(["8.9806","38.7578"],12);
+{% endif %}
 {% if schools %}
         {% for school in schools %}
-    L.marker([{{school.location.y}},{{school.location.x}}]).bindPopup("<p>{{school.name}}</p> <p>{{school.location}}</p>").openPopup().addTo(map);
+    L.marker([{{school.location.y}},{{school.location.x}}],{icon:schoolIcon}).bindPopup("<p>{{school.name}}</p> <p>{{school.location}}</p>").openPopup().addTo(map);
 
 
         {% endfor %}
@@ -90,5 +146,6 @@ map.createPane('pane_boundary_1');
 
     map.addLayer(layer_residential_areas_0);
 }
+
 
 </script>

@@ -6,7 +6,7 @@
       <div class="container-fluid">
 
         <!-- Brand -->
-        <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+        <a class="navbar-brand waves-effect" href="{% url 'home'%}" target="_blank">
           <strong class="blue-text">GIS School Location Analysis</strong>
         </a>
 
@@ -22,7 +22,7 @@
           <!-- Left -->
           <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-              <a class="nav-link waves-effect" href="#">Home
+              <a class="nav-link waves-effect" href="{% url 'home'%}">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -61,7 +61,7 @@
         </a>
           <a href="{%url 'schools' %}" class="list-group-item list-group-item-action waves-effect {% if request.resolver_match.url_name == 'schools' %} active {% endif %}">
           <i class="fas fa-map mr-3"></i>Schools</a>
-        <a  href="{%url 'distance_analysis' %}"  class="list-group-item list-group-item-action waves-effect {% if request.resolver_match.url_name == 'distance_analysis' %} active {% endif %}">
+        <a   class="list-group-item list-group-item-action waves-effect {% if request.resolver_match.url_name == 'distance_analysis' %} active {% endif %}">
           <i class="fas fa-map-marker mr-3"></i>Distance Analysis</a>
         <a href="#" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-check mr-3"></i>Suitable Sites</a>
