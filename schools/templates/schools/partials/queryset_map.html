@@ -2,7 +2,7 @@
 {% load leaflet_tags %}
 {% leaflet_css %}
 {% leaflet_js %}
-<script src="{% static " data/residential_areas_0.js" %}"></script>
+<script src="{% static "data/residential_areas_0.js" %}"></script>
  <script src="{% static "data/boundary_1.js" %}"></script>
 <div>
     {% leaflet_map "main" callback="map_init" %}
@@ -12,7 +12,7 @@
 <div class="card mt-2">
 
     <!-- Card header -->
-    <div class="card-header">Analysis Result</div>
+    <div class="card-header">Result</div>
 
     <!--Card content-->
     <div class="card-body">
@@ -62,7 +62,7 @@
                 lineJoin: 'miter',
                 weight: geoStyle(1.0),
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.6,
                 fillColor: 'rgba(253,191,111,1.0)',
                 interactive: false,
             }

@@ -1,0 +1,10 @@
+{% extends "./base.html" %}
+{% block heading %} Distance Analysis {% endblock %}
+{% block content %}
+{{ form.media }}
+   <form action="{% url 'distance_analysis_form' %}" method="post">
+{% csrf_token %}
+{{ form }}
+<input class="btn btn-outline-primary" type="submit" value="Submit">
+</form>
+{% endblock %}

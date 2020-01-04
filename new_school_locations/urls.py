@@ -23,5 +23,6 @@ urlpatterns = [
     path('',views.Home.as_view(), name='home'),
     path('school', views.Schools.as_view(), name='schools'),
 path('school/distance_analysis/<lat>/<lng>', views.DistanceAnalysis.as_view(), name='distance_analysis'),
+path('school/distance_analysis', views.DistanceAnalysisFormView.as_view(), name='distance_analysis_form'),
     url(r'^school/(?P<pk>[0-9]+)$',views.SchoolsDetailView.as_view(), name='detail')
 ]
