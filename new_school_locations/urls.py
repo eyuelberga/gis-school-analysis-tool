@@ -25,5 +25,6 @@ urlpatterns = [
     path('school/distance_analysis/<lat>/<lng>', views.DistanceAnalysis.as_view(), name='distance_analysis'),
     path('school/distance_analysis', views.DistanceAnalysisFormView.as_view(), name='distance_analysis_form'),
     path('school/suitable_site', views.SuitableSiteFormView.as_view(), name='suitable_site_form'),
+    url(r'^school/suitable_site/(?P<pk>[0-9]+)$', views.SuitableSiteView.as_view(), name='suitable_site'),
     url(r'^school/(?P<pk>[0-9]+)$', views.SchoolsDetailView.as_view(), name='detail')
 ]

@@ -8,4 +8,4 @@ class School(models.Model):
 
 class ResidentialArea(models.Model):
     name = models.CharField(max_length=100)
-    location = models.MultiPolygonField()
+    location = models.MultiPolygonField(srid=4326, geography=True)

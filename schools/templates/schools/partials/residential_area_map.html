@@ -9,6 +9,7 @@
 
 <script >
 function map_init(map,options){
+ map.setView(["8.9806","38.7578"],12);
      var m2px = 1;
         function newM2px() {
             var centerLatLng = map.getCenter();
@@ -53,7 +54,6 @@ map.createPane('pane_boundary_1');
         });
         map.addLayer(layer_boundary_1);
 
-        map.setView(["8.9806","38.7578"],12);
 {% if residential_areas %}
         let list = []
         {% for ra in residential_areas %}
@@ -62,9 +62,20 @@ map.createPane('pane_boundary_1');
         let coordinates = [{{ ra.location.geojson | safe }}.coordinates[0][0][i][1], {{ ra.location.geojson | safe }}.coordinates[0][0][i][0]]
         list.push(coordinates);
         }
-        L.polygon(list,{weight:1,}).bindPopup("<p><strong>{{ra.id}}_</strong>mvt_id {{ra.name}}</p><a class='btn btn-outline-primary'>Analyze</a>").addTo(map);
+        L.polygon(list,{weight:1,}).bindPopup("<p><strong>{{ra.id}}_</strong>mvt_id {{ra.name}}</p><a href='{% url 'suitable_site' pk=ra.id %}' class='btn btn-outline-primary'>Analyze</a>").addTo(map);
         {% endfor %}
 
+    {% endif %}
+
+{% if residential_area %}
+        let list = []
+        list = []
+        for(var i =0; i <{{ residential_area.location.geojson | safe }}.coordinates[0][0].length;i++){
+        let coordinates = [{{ residential_area.location.geojson | safe }}.coordinates[0][0][i][1], {{ residential_area.location.geojson | safe }}.coordinates[0][0][i][0]]
+        list.push(coordinates);
+        }
+        L.polygon(list,{weight:1,}).bindPopup("<p><strong>{{residential_area.id}}_</strong>mvt_id {{ra.name}}</p>").addTo(map);
+        map.setView(list[0],13);
     {% endif %}
 }
 

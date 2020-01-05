@@ -1,9 +1,10 @@
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
+from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.views.generic import DetailView
 from django.contrib.gis.geos import Point
-from django.contrib.gis.db.models.functions import Distance
+from django.contrib.gis.db.models.functions import Distance, Area, Centroid
 from django.shortcuts import get_object_or_404, render
 
 from .forms import DistanceAnalysisForm
@@ -79,6 +80,24 @@ class DistanceAnalysis(generic.ListView):
 class SchoolsDetailView(DetailView):
     template_name = 'schools/detail.html'
     model = School
+
+
+class SuitableSiteView(DetailView):
+    template_name = 'schools/suitable_site.html'
+    model = ResidentialArea
+    context_object_name = 'residential_area'
+    assessment = True
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = ResidentialArea.objects.annotate(area=Area("location"), centroid=Centroid("location")).get(
+            pk=self.kwargs['pk'])
+        schools_nearby = School.objects.annotate(distance=Distance('location', obj.centroid)).order_by('distance')[0:6]
+        self.assessment = schools_nearby[0].distance.km <= 5.0
+        context['area'] = obj.area
+        context['closest_school'] = schools_nearby[0]
+        context['assessment'] = self.assessment
+        return context
 
 
 class SuitableSiteFormView(generic.ListView):
