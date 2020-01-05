@@ -1,3 +1,5 @@
+import math
+
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
 from django.db.models import Sum
 from django.http import HttpResponseRedirect
@@ -86,17 +88,26 @@ class SuitableSiteView(DetailView):
     template_name = 'schools/suitable_site.html'
     model = ResidentialArea
     context_object_name = 'residential_area'
-    assessment = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         obj = ResidentialArea.objects.annotate(area=Area("location"), centroid=Centroid("location")).get(
             pk=self.kwargs['pk'])
         schools_nearby = School.objects.annotate(distance=Distance('location', obj.centroid)).order_by('distance')[0:6]
-        self.assessment = schools_nearby[0].distance.km <= 5.0
         context['area'] = obj.area
+        # population density in addis ababa is 5165/km2
+        population = 5165 * obj.area.sq_km
+        # 43 % of the population is a student
+        students = population * (43 / 100)
+        # one school holds more than 10,000 students
+        no_schools = math.ceil(students / 10000)
         context['closest_school'] = schools_nearby[0]
-        context['assessment'] = self.assessment
+        context['proximity_criteria'] = schools_nearby[0].distance.km <= 5.0
+        context['size_criteria'] = schools_nearby[0].distance.km <= 5.0 if no_schools == 1 else schools_nearby[
+                                                                                                    0].distance.km <= 5.0 and \
+                                                                                                schools_nearby[
+                                                                                                    1].distance.km <= 5.0
+        context['overall'] = context['size_criteria'] and context['proximity_criteria']
         return context
 
 

@@ -2,9 +2,8 @@
 {% block heading %} Suitable Site for {{residential_area.id}}_mvt{{residential_area.name}} {% endblock %}
 {% block content %}
 <div class="row wow fadeIn">
-
     <!--Grid column-->
-    <div class="col-md-4 mb-4">
+    <div class="col-md-12 mb-4">
 
         <!--Card-->
         <div class="card">
@@ -20,12 +19,14 @@
 
     </div>
     <!--Grid column-->
+</div>
+<div class="row wow fadeIn">
 
     <!--Grid column-->
-    <div class="col-md-8 mb-4">
+    <div class="col-md-6 mb-4">
         <!--Card-->
         <div class="card mb-4">
-            <div class="card-header text-center">Residential Area </div>
+            <div class="card-header text-center">Residential Area</div>
             <div class="card-body">
                 <ul class="traffic-sales list-group list-group-flush">
                     <li class="traffic-sales-content list-group-item "><span class="traffic-sales-name">ID </span><span
@@ -42,21 +43,67 @@
                             class="ml-1 text-primary">{{closest_school.distance}}</span></span>
                                                 </span>
                     </li>
-                    {%if assessment%}
-            <li class="traffic-sales-content list-group-item"><span class="traffic-sales-name">Assessment</span> <span
-                    class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i
-                    class="fa fa-fw fa-map-check"></i></span><span
-                    class="ml-1  text-success">There is a school within a distance less than or equal to 5kms </span></span>
-                                                </span>
-            </li>
-            {% else %}
-                <li class="traffic-sales-content list-group-item"> <span class="traffic-sales-name">Assessment</span><span
-                    class="icon-circle-small icon-box-xs text-danger ml-4 bg-success-light"><i
-                    class="fa fa-fw fa-map-check"></i></span><span
-                    class="ml-1 traffic-sales-name text-danger">There are no schools within a distance less than or equal to 5kms </span></span>
-                                                </span>
-            </li>
-            {% endif %}
+                </ul>
+
+            </div>
+        </div>
+        <!--/.Card-->
+
+    </div>
+    <div class="col-md-6 mb-4">
+        <!--Card-->
+        <div class="card mb-4">
+            <div class="card-header text-center">Analysis Results</div>
+            <div class="card-body">
+                <ul class="traffic-sales list-group list-group-flush">
+
+                    <li class="traffic-sales-content list-group-item"><span class="traffic-sales-name">Proximity to Schools</span>
+                        {%if proximity_criteria%}
+                        <span
+                                class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i
+                                class="fa fa-fw fa-map-check"></i></span>
+                        <span
+                                class="ml-1  text-success">Pass</span>
+                         {% else %}
+                          <span
+                                class="icon-circle-small icon-box-xs text-danger ml-4 bg-success-light"><i
+                                class="fa fa-fw fa-map-check"></i></span>
+                        <span
+                                class="ml-1 traffic-sales-name text-danger">Fail</span>
+                        {% endif %}
+                    </li>
+                    <li class="traffic-sales-content list-group-item"><span class="traffic-sales-name">Size to School Ratio</span>
+                        {%if size_criteria%}
+                        <span
+                                class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i
+                                class="fa fa-fw fa-map-check"></i></span>
+                        <span
+                                class="ml-1  text-success">Pass</span>
+                         {% else %}
+                          <span
+                                class="icon-circle-small icon-box-xs text-danger ml-4 bg-success-light"><i
+                                class="fa fa-fw fa-map-check"></i></span>
+                        <span
+                                class="ml-1 traffic-sales-name text-danger">Fail</span>
+                        {% endif %}
+                    </li>
+                         <li class="traffic-sales-content list-group-item"><span class="traffic-sales-name">Overall Assessment</span>
+                        {%if overall%}
+                        <span
+                                class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i
+                                class="fa fa-fw fa-map-check"></i></span>
+                        <span
+                                class="ml-1  text-success">The Area does not require the a new public school</span>
+                         {% else %}
+                          <span
+                                class="icon-circle-small icon-box-xs text-danger ml-4 bg-success-light"><i
+                                class="fa fa-fw fa-map-check"></i></span>
+                        <span
+                                class="ml-1 traffic-sales-name text-danger">The Area is in need of a public school</span>
+                        {% endif %}
+                    </li>
+
+
                 </ul>
 
             </div>
@@ -65,4 +112,5 @@
 
     </div>
 </div>
+
 {% endblock %}
