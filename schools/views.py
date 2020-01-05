@@ -101,6 +101,7 @@ class SuitableSiteView(DetailView):
         students = population * (43 / 100)
         # one school holds more than 10,000 students
         no_schools = math.ceil(students / 10000)
+        context['centroid'] = obj.centroid
         context['closest_school'] = schools_nearby[0]
         context['proximity_criteria'] = schools_nearby[0].distance.km <= 5.0
         context['size_criteria'] = schools_nearby[0].distance.km <= 5.0 if no_schools == 1 else schools_nearby[

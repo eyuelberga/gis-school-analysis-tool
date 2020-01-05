@@ -3,11 +3,13 @@
 {% leaflet_css %}
 {% leaflet_js %}
 <script src="{% static "data/boundary_1.js" %}"></script>
+<script src="{% static "js/turf.min.js" %}"></script>
 <div>
     {% leaflet_map "main" callback="map_init" %}
 </div>
 
-<script >
+<script>
+
 function map_init(map,options){
  map.setView(["8.9806","38.7578"],12);
      var m2px = 1;
@@ -74,8 +76,12 @@ map.createPane('pane_boundary_1');
         let coordinates = [{{ residential_area.location.geojson | safe }}.coordinates[0][0][i][1], {{ residential_area.location.geojson | safe }}.coordinates[0][0][i][0]]
         list.push(coordinates);
         }
-        L.polygon(list,{weight:1,}).bindPopup("<p><strong>{{residential_area.id}}_</strong>mvt_id {{ra.name}}</p>").addTo(map);
+        const p = L.polygon(list,{weight:1,}).bindPopup("<p><strong>{{residential_area.id}}_</strong>mvt_id {{ra.name}}</p>").addTo(map);
         map.setView(list[0],13);
+        {% if not overall %}
+        let buffered  = turf.buffer({{centroid.geojson | safe }},5,{units:"kilometers"})
+        L.geoJSON(buffered,{color:'red', weight:1}).bindPopup("<p>Suitable location for public school construction</p>").addTo(map)
+        {% endif %}
     {% endif %}
 }
 
