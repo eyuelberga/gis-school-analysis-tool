@@ -5,7 +5,7 @@ import json
 from django.contrib.gis.geos import fromstr
 from pathlib import Path
 
-DATA_FILENAME = 'schools_data.json'
+DATA_FILENAME = 'schools/migrations/schools_data.json'
 
 
 def load_data(apps, schema_editor):

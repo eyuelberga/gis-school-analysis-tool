@@ -5,7 +5,7 @@ import json
 from django.contrib.gis.geos import fromstr, MultiPolygon, Polygon
 from pathlib import Path
 
-DATA_FILENAME = 'residential_area_data1.json'
+DATA_FILENAME = 'schools/migrations/residential_area_data.json'
 
 
 def load_data(apps, schema_editor):
@@ -38,4 +38,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(load_data)
     ]

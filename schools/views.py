@@ -1,7 +1,6 @@
 import math
 
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
-from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.views.generic import DetailView
@@ -36,6 +35,12 @@ class Schools(generic.ListView):
     context_object_name = 'schools'
     queryset = School.objects.all()
     template_name = 'schools/schools.html'
+
+
+class About(generic.ListView):
+    template_name = 'schools/about.html'
+    context_object_name = 'about'
+
 
 
 class DistanceAnalysisFormView(generic.View):
