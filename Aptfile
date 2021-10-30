@@ -1,1 +1,2 @@
-gdal
+gdal-bin
+libgdal-dev
