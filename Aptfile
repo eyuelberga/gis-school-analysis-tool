@@ -1,2 +1,5 @@
+binutils
+libproj-dev
 gdal-bin
-libgdal-dev
+python-gdal
+python3-gdal
