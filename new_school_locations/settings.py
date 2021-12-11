@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "https://gis-school-analysis.herokuapp.com"]
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -79,15 +79,12 @@ WSGI_APPLICATION = 'new_school_locations.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'gis-school',
-        'USER': 'user001',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
-        'PORT': '5432'
+
     }
 }
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+db_from_env = dj_database_url.config()
+DATABASES['default'] = db_from_env
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

@@ -24,7 +24,7 @@
                     class="traffic-sales-amount">{{schools.first.name}}  <span
                     class="icon-circle-small icon-box-xs text-success ml-4 bg-primary-light"><i
                     class="fa fa-fw fa-map-pin text-primary"></i></span><span
-                    class="ml-1 text-primary">{{schools.first.distance}}</span></span>
+                    class="ml-1 text-primary">{{schools.first.distance.km | floatformat:2}} Km</span></span>
                                                 </span>
             </li>
             {%if assessment%}

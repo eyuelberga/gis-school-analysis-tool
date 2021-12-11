@@ -34,7 +34,7 @@
                 {% if schools %}
         {% for school in schools %}
                 <a class="list-group-item list-group-item-action waves-effect">{{school.name}}
-                  <span class="badge badge-primary badge-pill pull-right">{{school.distance}}</span>
+                  <span class="badge badge-primary badge-pill pull-right">{{school.distance.km | floatformat}} Km</span>
                 </a>
                 {% endfor %}
                 {% endif %}

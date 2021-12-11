@@ -33,14 +33,14 @@
                             class="traffic-sales-amount">{{residential_area.id}}_mvt{{residential_area.name}} </span>
                     </li>
                     <li class="traffic-sales-content list-group-item "><span class="traffic-sales-name">Area</span><span
-                            class="traffic-sales-amount">{{area}}</span>
+                            class="traffic-sales-amount">{{area.sq_km |floatformat:2}} Km<sup>2</sup></span>
                     </li>
                     <li class="traffic-sales-content list-group-item"><span
                             class="traffic-sales-name">Closest School<span
-                            class="traffic-sales-amount">{{closest_school.name}}  <span
+                            class="traffic-sales-amount"><strong>{{closest_school.name}}</strong>  <span
                             class="icon-circle-small icon-box-xs text-success ml-4 bg-primary-light"><i
                             class="fa fa-fw fa-map-pin text-primary"></i></span><span
-                            class="ml-1 text-primary">{{closest_school.distance}}</span></span>
+                            class="ml-1 text-primary">{{closest_school.distance.km |floatformat:2}} Km</span></span>
                                                 </span>
                     </li>
                 </ul>
