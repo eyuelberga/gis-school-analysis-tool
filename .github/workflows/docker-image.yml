@@ -23,7 +23,7 @@ jobs:
         env:
           RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
         run: |
-          docker build --file Dockerfile --tag eyuelberga/gis-school-analysis-geo-django:$RELEASE_VERSION
+          docker build -t eyuelberga/gis-school-analysis-geo-django:$RELEASE_VERSION .
       - name: Push to docker hub
         env:
           RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
