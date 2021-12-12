@@ -10,15 +10,14 @@ COPY . /code
 WORKDIR /code/
 RUN pip install -r requirements.txt
 
-ENV SECRET_KEY=
-
 # Setup GDAL
 RUN apt-get update &&\
     apt-get install -y binutils libproj-dev gdal-bin python3-gdal
 
 ENV SECRET_KEY=12345678
 ENV DATABASE_URL=postgres://username@localhost
+ENV PORT=8080
 RUN chmod a+x ./entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
-EXPOSE 8000
-CMD python manage.py migrate --no-input && gunicorn -b 0.0.0.0:8000 new_school_locations.wsgi --log-file -
+EXPOSE $PORT
+CMD python manage.py migrate --no-input && gunicorn -b 0.0.0.0:$PORT new_school_locations.wsgi --log-file -

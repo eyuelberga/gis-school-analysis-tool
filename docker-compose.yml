@@ -1,0 +1,23 @@
+version: '3.2'
+services:
+  postgres:
+    image: postgis/postgis:12-3.1-alpine
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - 6000:5432
+
+  gis-school-analysis:
+    image: eyuelberga/gis-school-analysis-geo-django:latest
+    ports:
+      - '8081:8000'
+    depends_on:
+      - 'postgres'
+    environment:
+      PORT: 8081
+      SECRET_KEY: ${SECRET_KEY}
+      DATABASE_URL: ${DATABASE_URL}
