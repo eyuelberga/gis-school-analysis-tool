@@ -1,0 +1,33 @@
+name: Publish Docker Image
+on:
+  release:
+    types: [published]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+      - name: docker login
+        env:
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+      - name: Build the Docker image
+        env:
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        run: |
+          docker build web --file Dockerfile --tag eyuelberga/gis-school-analysis-geo-django:$RELEASE_VERSION
+      - name: Push to docker hub
+        env:
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        run: |
+          docker push eyuelberga/gis-school-analysis-geo-django:$RELEASE_VERSION
+          docker tag eyuelberga/gis-school-analysis-geo-django:$RELEASE_VERSION eyuelberga/gis-school-analysis-geo-django:latest
+          docker push eyuelberga/gis-school-analysis-geo-django:latest

@@ -1,0 +1,4 @@
+#!/bin/sh
+SECRET_KEY="$SECRET_KEY"
+DATABASE_URL="$DATABASE_URL"
+exec "$@"
