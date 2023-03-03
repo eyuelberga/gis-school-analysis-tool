@@ -15,6 +15,16 @@ missing information were also removed.
 
 [Read This Article for more detail](https://dev.to/eyuelberga/developing-an-internet-based-gis-application-to-analyze-and-determine-potentialpublic-school-locations-in-addis-ababa-2oko)
 
+## Preview
+
+![Dashboard](assets/gis_dashboard.png)
+![gis_distance_analysis_form](assets/gis_distance_analysis_form.jpeg)
+![gis_distance_analysis_result](assets/gis_distance_analysis_result.jpeg)
+![gis_distance_school_visualization](assets/gis_distance_school_visualization.jpeg)
+![gis_distance_school_suitable_site_analysis](assets/gis_distance_school_suitable_site_analysis.jpeg)
+![gis_distance_school_suitable_site_analysis_result_fail](assets/gis_distance_school_suitable_site_analysis_result_fail.jpeg)
+![gis_distance_school_suitable_site_analysis_result_pass](assets/gis_distance_school_suitable_site_analysis_result_pass.jpeg)
+
 ## Running Locally
 
 To run this project locally, the easiest way would be using `docker-compose`
